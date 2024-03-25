@@ -1,10 +1,7 @@
-import BucketMove from "./Projects/Project1";
-import Home from "./Home";
-import ExpandComponent from "./Projects/Project2";
-import InfiniteScroll from "./Projects/Project3";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import React, { useState } from "react";
 
-const App = () => {
+const ExpandComponent = ({ items }) => {
+  //  keep all the data's in an array to iterate one by one
   const data = [
     {
       name: "Applications",
@@ -66,24 +63,38 @@ const App = () => {
       ],
     },
   ];
-  return (
-    <>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/bucket" element={<BucketMove />} />
-          <Route
-            path="/hierarchicalList"
-            element={<ExpandComponent items={data} />}
-          />
-          <Route path="/infiniteScroll" element={<InfiniteScroll />} />
 
-          <Route path="/Home" element={<Home />} />
+  const [expandedItems, setExpandedItems] = useState([]);
 
-          <Route path="*" element={<Navigate to="/Home" />} />
-        </Routes>
-      </BrowserRouter>
-    </>
-  );
+  // to unexpand the items when clicking on the same button
+  const toggleExpand = (item) => {
+    setExpandedItems((prevExpandedItems) => {
+      if (prevExpandedItems.includes(item)) {
+        return prevExpandedItems.filter(
+          (expandedItem) => expandedItem !== item
+        );
+      } else {
+        return [...prevExpandedItems, item];
+      }
+    });
+  };
+
+  // to expand the items based on the available child elements
+  const renderItems = (items) => {
+    return items.map((item, index) => (
+      <div className="expand" key={index}>
+        <div className="expand2" onClick={() => toggleExpand(item.name)}>
+          {item.name}
+        </div>
+        {expandedItems.includes(item.name) && item.children.length > 0 && (
+          <div className="one">{renderItems(item.children)}</div>
+        )}
+      </div>
+    ));
+  };
+
+  // to display the items in the UI
+  return <div>{renderItems(items)}</div>;
 };
 
-export default App;
+export default ExpandComponent;
