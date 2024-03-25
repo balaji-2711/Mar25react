@@ -36,13 +36,14 @@ function InfiniteScroll() {
   }
 
   return (
-    <div className="infinite">
+    <div>
       {posts.map((post) => (
-        <div className="infinite2" key={post.id}>
+        <div className="infinite" key={post.id}>
           <h2>{post.title}</h2>
         </div>
       ))}
     </div>
   );
 }
+
 export default InfiniteScroll;

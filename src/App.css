@@ -216,6 +216,9 @@
 
 .infinite {
   background-color: rgb(148, 120, 180);
+  padding: 10px;
+  margin-bottom: 10px;
+
 }
 
 .infinite2 {
