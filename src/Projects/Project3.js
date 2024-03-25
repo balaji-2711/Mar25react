@@ -31,15 +31,16 @@ function InfiniteScroll() {
       .then((newPosts) => {
         setPosts((prevPosts) => [...prevPosts, ...newPosts]);
         // setPosts(newPosts);
-        setPage((prevPage) => prevPage + 1);
+        // setPage((prevPage) => prevPage + 1);
       });
   }
 
   return (
     <div>
       {posts.map((post) => (
-        <div className="infinite" key={post.id}>
+        <div key={post.id}>
           <h2>{post.title}</h2>
+          <p>{post.body}</p>
         </div>
       ))}
     </div>
