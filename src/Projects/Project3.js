@@ -26,7 +26,7 @@ function InfiniteScroll() {
   // to set the content to posts after fetching the data
 
   function fetchPosts() {
-    fetch(`https://jsonplaceholder.typicode.com/posts?_page=${page}&_limit=5`)
+    fetch(`https://jsonplaceholder.typicode.com/posts?_page=${page}`)
       .then((response) => response.json())
       .then((newPosts) => {
         setPosts((prevPosts) => [...prevPosts, ...newPosts]);
